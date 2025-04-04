@@ -9,7 +9,7 @@ import io.quarkus.builder.item.MultiBuildItem;
  * {@link io.quarkus.bootstrap.devmode.DependenciesFilter#getReloadableModules(io.quarkus.bootstrap.model.ApplicationModel)
  * reloadable module} that, if modified, may result in a hot redeployment when in the dev mode.
  * <p>
- * A file may be identified with an location or a matching predicate. See {@link Builder#setLocation(String)} and
+ * A file may be identified with a location or a matching predicate. See {@link Builder#setLocation(String)} and
  * {@link Builder#setLocationPredicate(Predicate)}.
  *
  * The location may be:

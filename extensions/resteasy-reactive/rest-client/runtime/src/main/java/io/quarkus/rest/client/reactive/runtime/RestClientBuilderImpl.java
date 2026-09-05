@@ -650,8 +650,8 @@ public class RestClientBuilderImpl implements RestClientBuilder, VertxRequestCus
 
         Boolean effectiveEnableCompression = enableCompression;
         if (effectiveEnableCompression == null) {
-            if (restClients.enableCompression().isPresent()) {
-                effectiveEnableCompression = restClients.enableCompression().get();
+            if (restClients.enableResponseDecompression().isPresent()) {
+                effectiveEnableCompression = restClients.enableResponseDecompression().get();
             }
         }
         if (effectiveEnableCompression == null) {

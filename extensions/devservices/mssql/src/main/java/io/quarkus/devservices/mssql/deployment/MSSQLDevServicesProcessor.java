@@ -27,6 +27,7 @@ import io.quarkus.devservices.common.ConfigureUtil;
 import io.quarkus.devservices.common.DevServicesHostUtil;
 import io.quarkus.devservices.common.JBossLoggingConsumer;
 import io.quarkus.devservices.common.Labels;
+import io.quarkus.devservices.common.StartableContainer;
 import io.quarkus.devservices.common.Volumes;
 import io.quarkus.runtime.LaunchMode;
 
@@ -197,6 +198,11 @@ public class MSSQLDevServicesProcessor {
         @Override
         public void close() {
             super.close();
+        }
+
+        @Override
+        public boolean isReusable() {
+            return StartableContainer.isContainerReusable(this);
         }
     }
 }

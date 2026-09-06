@@ -60,12 +60,18 @@ public final class RunningDevServicesRegistry {
                 if (services != null) {
                     services.remove(service);
                 }
-                try {
-                    logClosing(owner.featureName(), launchMode, service.containerId());
-                    service.close();
-                } catch (Exception e) {
-                    // We don't want to fail the shutdown hook if a service fails to close
-                    logFailedToClose(e, owner.featureName(), launchMode, service.containerId());
+                if (service.isReusable()) {
+                    // Reuse-configured services must survive; only the registry bookkeeping above is cleared.
+                    log.debugf("Not closing reusable dev service for %s in launch mode %s: %s",
+                            owner.featureName(), launchMode, service.containerId());
+                } else {
+                    try {
+                        logClosing(owner.featureName(), launchMode, service.containerId());
+                        service.close();
+                    } catch (Exception e) {
+                        // We don't want to fail the shutdown hook if a service fails to close
+                        logFailedToClose(e, owner.featureName(), launchMode, service.containerId());
+                    }
                 }
             }
         }

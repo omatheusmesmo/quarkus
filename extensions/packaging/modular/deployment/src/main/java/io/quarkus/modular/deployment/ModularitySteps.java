@@ -742,7 +742,7 @@ public final class ModularitySteps {
             case "io.quarkus.resteasy.reactive.vertx" -> {
                 depAccesses.computeIfAbsent("io.vertx.core", ModularitySteps::newMap)
                         .putAll(Map.of("io.vertx.core.impl", PackageAccess.EXPORTED,
-                                "io.vertx.core.buffer.impl", PackageAccess.EXPORTED,
+                                "io.vertx.core.impl.buffer", PackageAccess.EXPORTED,
                                 "io.vertx.core.http.impl", PackageAccess.EXPORTED,
                                 "io.vertx.core.net.impl", PackageAccess.EXPORTED));
             }
@@ -782,7 +782,6 @@ public final class ModularitySteps {
                 depAccesses.computeIfAbsent("io.vertx.core", ModularitySteps::newMap)
                         .putAll(Map.of(
                                 "io.vertx.core.impl", PackageAccess.EXPORTED,
-                                "io.vertx.core.impl.logging", PackageAccess.EXPORTED,
                                 "io.vertx.core.http.impl", PackageAccess.EXPORTED,
                                 "io.vertx.core.net.impl", PackageAccess.EXPORTED));
             }

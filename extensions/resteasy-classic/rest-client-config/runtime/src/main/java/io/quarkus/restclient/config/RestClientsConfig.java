@@ -285,7 +285,7 @@ public interface RestClientsConfig {
      * <p>
      * Can be overwritten by client-specific settings.
      */
-    Optional<Boolean> enableCompression();
+    Optional<Boolean> enableResponseDecompression();
 
     /**
      * If the Application-Layer Protocol Negotiation is enabled, the client will negotiate which protocol to use over the

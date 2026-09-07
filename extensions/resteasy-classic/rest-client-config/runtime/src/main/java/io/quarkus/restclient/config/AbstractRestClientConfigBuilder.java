@@ -55,6 +55,8 @@ import io.smallrye.config.SmallRyeConfigBuilder;
  */
 public abstract class AbstractRestClientConfigBuilder implements ConfigBuilder {
     private static final String REST_CLIENT_PREFIX = "quarkus.rest-client.";
+    private static final String ENABLE_COMPRESSION = ".enable-compression";
+    private static final String ENABLE_RESPONSE_DECOMPRESSION = ".enable-response-decompression";
 
     @Override
     public SmallRyeConfigBuilder configBuilder(final SmallRyeConfigBuilder builder) {
@@ -448,12 +450,8 @@ public abstract class AbstractRestClientConfigBuilder implements ConfigBuilder {
 
     private static class RenameConfigFallbackInterceptor extends FallbackConfigSourceInterceptor {
         private static final Function<String, String> COMPRESSION_FALLBACK = name -> {
-            if (name.startsWith("quarkus.rest-client")) {
-                int index = name.indexOf(".enable-response-decompression");
-                if (index == -1) { // not the property we care about
-                    return name;
-                }
-                return name.substring(0, index) + ".enable-compression";
+            if (name.startsWith(REST_CLIENT_PREFIX) && name.endsWith(ENABLE_RESPONSE_DECOMPRESSION)) {
+                return name.substring(0, name.length() - ENABLE_RESPONSE_DECOMPRESSION.length()) + ENABLE_COMPRESSION;
             }
             return name;
         };
@@ -465,12 +463,8 @@ public abstract class AbstractRestClientConfigBuilder implements ConfigBuilder {
 
     private static class RenameConfigRelocateInterceptor extends RelocateConfigSourceInterceptor {
         private static final Function<String, String> COMPRESSION_RELOCATION = name -> {
-            if (name.startsWith("quarkus.rest-client")) {
-                int index = name.indexOf(".enable-compression");
-                if (index == -1) { // not the property we care about
-                    return name;
-                }
-                return name.substring(0, index) + ".enable-response-decompression";
+            if (name.startsWith(REST_CLIENT_PREFIX) && name.endsWith(ENABLE_COMPRESSION)) {
+                return name.substring(0, name.length() - ENABLE_COMPRESSION.length()) + ENABLE_RESPONSE_DECOMPRESSION;
             }
             return name;
         };

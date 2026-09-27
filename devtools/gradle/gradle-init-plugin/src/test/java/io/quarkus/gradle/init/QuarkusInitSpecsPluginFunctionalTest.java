@@ -50,7 +50,8 @@ class QuarkusInitSpecsPluginFunctionalTest {
 
         BuildResult result = GradleRunner.create()
                 .withProjectDir(projectDir.toFile())
-                .withArguments(List.of("--init-script", initScript.toString(), "init",
+                .forwardOutput()
+                .withArguments(List.of("--stacktrace", "--info", "--init-script", initScript.toString(), "init",
                         "-Dorg.gradle.buildinit.specs=io.quarkus.init:" + System.getProperty("project.version"),
                         "-Dquarkus.tools.config=" + System.getProperty("quarkus.tools.config"),
                         "-DquarkusRegistryClient=true", "--type", "quarkus-app"))
